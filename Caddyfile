@@ -1,0 +1,24 @@
+# Railway injects PORT; 8080 is the local default.
+:{$PORT:8080} {
+	root * /srv
+	encode zstd gzip
+	file_server
+
+	# Pages are generated per build, assets are content-addressed by name only,
+	# so keep HTML fresh and let the rest cache for a day.
+	@html path *.html /
+	header @html Cache-Control "public, max-age=0, must-revalidate"
+	@assets path *.css *.js *.png *.webp *.svg
+	header @assets Cache-Control "public, max-age=86400"
+
+	header {
+		X-Content-Type-Options nosniff
+		Referrer-Policy strict-origin-when-cross-origin
+		-Server
+	}
+
+	try_files {path} {path}/ {path}/index.html
+	handle_errors {
+		respond "{err.status_code} {err.status_text}"
+	}
+}

@@ -1,3 +1,9 @@
+---
+order: 3
+slug: full-vibe-walled-garden
+icon: box
+---
+
 # Full Vibing in a Walled Garden
 
 If you don't understand code at all or for whatever reason, you don't want to put hands on code for this project, you can use helpful tools to do everything for you and hide the code _and_ the agent from you. You just prompt and eventually you can get a system.
@@ -33,7 +39,7 @@ Low to Medium. Depends on the implementation. There is scope within these produc
 
 ## Safety
 
-Low to Medium. Again, depends on Implementatino.
+Low to Medium, and it is the platform's safety, not yours. You review no code, so nothing is caught at the increment. Defects land in production because production is where the platform builds. Worse, the risk is systemic rather than per project. One platform flaw hits every app hosted on it. Base44 is the clean example, a single missing privacy check exposed private enterprise apps wholesale and the exploit needed nothing more than a URL. This is the exact inversion of the Tab Completion argument. There, safety is equivalent to your own skill. Here it is equivalent to the vendor's, and you have no visibility into it and no lever on it beyond choosing a different vendor. The guardrails that do exist were mostly retrofitted after an incident, and the failures were boring defaults rather than exotic attacks. Lovable shipped with row level security off, Replit ignored its own code freeze. Which is the thing worth remembering, a guardrail stated in the prompt is not a guardrail.
 
 ## Brainrot
 

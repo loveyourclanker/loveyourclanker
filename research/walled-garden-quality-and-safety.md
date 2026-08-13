@@ -1,10 +1,10 @@
 # Walled Garden Vibing — Quality & Safety Research
 
-Research backing two claims in `inception.md` under **Full Vibing in a Walled Garden** (Lovable, Replit, Base44):
+Research backing two claims in `patterns/full_vibe_walled_garden.md` (then `inception.md`) under **Full Vibing in a Walled Garden** (Lovable, Replit, Base44):
 
 > **Quality** — "Low to Medium. Depends on the implementation. There is scope within these products to leverage DRY principles, managed orchestration, guard rails, multi agent cross checking systems etc etc... but the extent to which they do so is unknown."
 
-> **Safety** — currently a copy-paste of the Tab Completion section and describes the wrong pattern. Needs rewriting; findings below.
+> **Safety** — was a copy-paste of the Tab Completion section and described the wrong pattern. Rewritten 2026-08-14 from the findings below.
 
 Researched 2026-08-13. Platforms move fast — treat dated claims as snapshots.
 
@@ -108,7 +108,7 @@ Suggested rating: **Low to Medium, and dependent on the platform rather than on 
 
 ---
 
-## 4. Suggested edits to `inception.md`
+## 4. Suggested edits to `patterns/full_vibe_walled_garden.md`
 
 1. **Quality** — soften "extent is unknown" to "varies sharply by vendor and by paid tier." Cite Replit's two-tier verification agent as the concrete existence proof that cross-checking is real; note Lovable gates it behind Agent Mode pricing.
 2. **Quality** — split the rubric line: *works today* is credibly Medium (browser-verified, self-tested), *maintainable in a year* is Low. DRY is the specific casualty, backed by GitClear.

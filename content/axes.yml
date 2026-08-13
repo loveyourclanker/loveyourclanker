@@ -1,0 +1,80 @@
+# Axis definitions for the pattern rubric.
+#
+# This file is the contract between patterns/*.md and the site build.
+# `heading` must match a `##` heading in every pattern file exactly. If it
+# doesn't, the build fails rather than rendering a blank section.
+#
+# To add an axis (e.g. the proposed "Blast Radius"): add an entry here AND a
+# matching `## Blast Radius` section to all five pattern files. Cards, radar,
+# comparison table and rubric cards all pick it up with no template changes.
+
+# Prose rating word -> 1..5. This is an editorial judgement, so it lives in
+# content/ rather than being buried in the build script.
+#
+# Note `High` is 4, not 5. On a five-pattern set `High` has to sit below
+# `Highest` or Tab Completion and I Code You Check score identically.
+# `Negative` only occurs on Brainrot, where inversion turns it into a 5.
+scale:
+  Lowest: 1
+  Low: 2
+  Low to Medium: 2
+  Medium: 3
+  Medium to High: 4
+  High: 4
+  Highest: 5
+  Negative: 1
+
+# The non-rating sections, and where they sit relative to the axes. Together
+# with `axes` below this gives the validator the complete expected `##` heading
+# order for every pattern file.
+sections:
+  leading:
+    - Flow
+    - Tools
+  trailing:
+    - Best For
+
+axes:
+  - key: speed
+    heading: Speed
+    label: Speed
+    dotLabel: Speed
+    invert: false
+    definition: How much wall-clock time the pattern actually saves — not how fast the tokens arrive.
+
+  - key: control
+    heading: Control
+    label: Control
+    dotLabel: Control
+    invert: false
+    definition: How small the increments are, and how easily you can steer, reject, or supply context.
+
+  - key: quality
+    heading: Quality
+    label: Quality
+    dotLabel: Quality
+    invert: false
+    definition: What the code looks like a month later, once the session that produced it is forgotten.
+
+  - key: safety
+    heading: Safety
+    label: Safety
+    dotLabel: Safety
+    invert: false
+    definition: The blast radius when it goes wrong, and how much of the damage you'd notice.
+
+  # invert: true means low is the good news. The dots and the radar show the
+  # flipped score under `dotLabel` so "further out is better" holds everywhere.
+  - key: brainrot
+    heading: Brainrot
+    label: Brainrot
+    dotLabel: Skill retention
+    invert: true
+    definition: How much of the thinking leaves your head for good. Low is what you want.
+
+  - key: tokenUse
+    heading: Token Use
+    label: Token use
+    dotLabel: Token thrift
+    invert: true
+    definition: What the pattern costs to run, per unit of work that survives review.

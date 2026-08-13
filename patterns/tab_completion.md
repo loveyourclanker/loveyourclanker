@@ -1,3 +1,9 @@
+---
+order: 1
+slug: tab-completion
+icon: arrow-right-to-line
+---
+
 # Tab Completion
 
 In the early days of AI coding, this was _it_ and it is where the agentic engineering journey started for many. Tends to be not used much as there are newer patterns that give a better combination of efficiency with control and safety.
@@ -42,7 +48,7 @@ Low. The lassitude of handing off the hard problem is countered by the immediate
 
 ## Token Use
 
-Low
+Low. You are paying for a few hundred tokens of surrounding context per keystroke and nothing else. The cheapest pattern there is.
 
 ## Best For
 

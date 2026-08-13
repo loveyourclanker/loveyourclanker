@@ -1,0 +1,16 @@
+{
+  "name": "loveyourclanker",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "LoveYourClanker.org — Patterns of Agent Interaction. Static site generated from the markdown in patterns/.",
+  "scripts": {
+    "build": "node build.mjs",
+    "dev": "node dev.mjs",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "gray-matter": "^4.0.3",
+    "markdown-it": "^14.1.0"
+  }
+}

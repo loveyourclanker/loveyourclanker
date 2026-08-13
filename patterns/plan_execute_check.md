@@ -1,3 +1,9 @@
+---
+order: 4
+slug: plan-execute-check
+icon: list-checks
+---
+
 # Plan, Execute, Check
 
 A robust and professional approach. Good balance of speed and control. The current _meta_.
@@ -34,7 +40,7 @@ Medium to High. If you get good at this technique and target the right increment
 
 ## Control
 
-Moderate to High. You are in control of the architecture, the plan, the implementation you are literally handing off the part the the Agent can do well which is grinding out code.
+Medium to High. You are in control of the architecture, the plan, the implementation you are literally handing off the part the the Agent can do well which is grinding out code.
 
 ## Quality
 
@@ -50,7 +56,7 @@ Medium. This is efficient but you are handing off the #fun and rewarding part of
 
 ## Token Use
 
-Moderate to High. I have built whole systems on the $39 Claude plan using this method. Remember to clear context when you are flipping to a new increment and prompt your Agent to update it's memory with key decisions.
+Medium to High. I have built whole systems on the $39 Claude plan using this method. Remember to clear context when you are flipping to a new increment and prompt your Agent to update it's memory with key decisions.
 
 ## Best For
 

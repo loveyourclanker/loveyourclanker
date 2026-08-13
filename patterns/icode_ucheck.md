@@ -1,3 +1,9 @@
+---
+order: 5
+slug: icode-ucheck
+icon: scan-search
+---
+
 # I Code, You Check
 
 A High touch, high skill, professional approach for the most critical code. Complete control. You get to do the interesting bits. Not very fast.
@@ -18,8 +24,8 @@ A High touch, high skill, professional approach for the most critical code. Comp
 |   10 | | the Agent lists out a set of errors, gaps and omissions |
 |   11 | The Engineer runs through the list and makes any corrections that they agree with.<br>**The Engineer may choose to ignore issues found by the agent if they are irrelevant or unimportant** | |
 
-9. Steps 7 through 11 are repeated until the Engineer thinks the work is done
-10. The interaction ends.
+12. Steps 7 through 11 are repeated until the Engineer thinks the work is done
+13. The interaction ends.
 
 _notes_
 
@@ -53,7 +59,7 @@ Negative. You are learning, you are problem solving, you are getting smarter tha
 
 ## Token Use
 
-Moderate. Still paying for planning and checking but not all the generation tokens.
+Medium. Still paying for planning and checking but not all the generation tokens.
 
 ## Best For
 

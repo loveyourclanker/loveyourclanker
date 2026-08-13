@@ -1,3 +1,9 @@
+---
+order: 2
+slug: full-vibe-agent
+icon: sparkles
+---
+
 # Full Vibing with Agent
 
 If you don't understand code at all or for whatever reason, you don't want to put hands on code for this project, you can use your coding agent to do _everything_ and just not touch the code at all.
