@@ -223,6 +223,7 @@ kbd {
 .step-pair { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); margin-top: var(--space-2); }
 .step-outcome { grid-column: auto; background: transparent; border: 2px solid var(--color-neutral-300); }
 .step-outcome.step-eng { border-color: var(--color-accent-2-400); }
+.step-full { grid-column: 1 / -1; background: transparent; border: 2px solid var(--color-neutral-300); }
 .flow-notes { margin-top: var(--space-6); font-size: 14px; line-height: 1.6; color: var(--color-neutral-700); }
 .flow-notes ol, .flow-notes ul { margin: 0 0 var(--space-3); padding-left: 1.4em; }
 
@@ -296,7 +297,7 @@ kbd {
   /* One lane. The step keeps its actor colour, so the two roles stay readable. */
   .swimlane { grid-template-columns: minmax(0, 1fr); }
   .lane-head { display: none; }
-  .step-eng, .step-agt, .step-outcome { grid-column: 1; }
+  .step-eng, .step-agt, .step-outcome, .step-full { grid-column: 1; }
   .step-spacer { display: none; }
   .step-pair { grid-column: 1; grid-template-columns: minmax(0, 1fr); }
   .card-grid { grid-template-columns: minmax(0, 1fr); }

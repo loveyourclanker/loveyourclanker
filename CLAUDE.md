@@ -8,6 +8,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 interaction between software engineers and AI agents. Content repo *and* the static site
 generator that publishes it.
 
+**Live in production at https://loveyourclanker.org** (Railway, container from `Dockerfile`).
+Released 2026-08-14. This is a public site now — changes to `patterns/` ship to real readers on
+the next deploy, so treat content edits as publishing, not drafting.
+
 The point of the build: **every word on the site comes from the markdown in `patterns/`**, at
 build time. Nothing is typed twice. If a rating on the comparison table disagrees with the
 pattern file, that's a bug in the build, not a content edit to make.
@@ -45,9 +49,38 @@ If work is ready to commit, say so and stop. Offer a commit message if it helps 
 - `site/components.mjs`, `site/icons.mjs`, `site/templates/` — HTML as template literals.
 - `static/` — copied verbatim into `dist/`. `ds.css` (vendored design system), `site.css`
   (palette + components + responsive), `palette.js`, images.
-- `Dockerfile` / `Caddyfile` — multi-stage build → Caddy on `$PORT`, for Railway.
+- `Dockerfile` / `Caddyfile` — multi-stage build → Caddy on `$PORT`. This is what runs in
+  production on Railway.
 
 Two dependencies: `markdown-it` and `gray-matter`. Keep it that way.
+
+### Running and shipping
+
+```
+npm run dev      # rebuild-on-change + static server on :4321
+npm run build    # one-shot -> dist/
+npm run clean    # rm -rf dist
+```
+
+`npm run dev` watches `patterns/`, `content/`, `site/`, `static/`. No live-reload — refresh yourself.
+
+Deploy is push-to-`main`; Railway builds the `Dockerfile` and restarts. `dist/` is generated and
+gitignored, never committed.
+
+Caddy binds `:{$PORT:8080}`. Railway does **not** set `PORT` here, so it takes the `8080`
+fallback; the container exposes 8080 and the custom domain is pointed at that. Don't remove the
+`{$PORT:...}` form — the fallback is what's actually load-bearing, and the env-var branch keeps
+it working if the platform ever starts injecting one. Locally: `docker run -p 8080:8080 lyc`.
+
+`dev.mjs` is a separate Node server on :4321 and never runs in the container, which is why the
+two ports differ.
+
+Verified live: all six routes, every asset, 404 on unknown paths, the `Cache-Control` and
+`X-Content-Type-Options` headers from `Caddyfile`, and the 308 redirect that adds the trailing
+slash to `/patterns/<slug>`.
+
+**A broken build is a broken deploy.** The validators in `site/parse.mjs` fail the Docker build,
+not just the local one — that is the intent. Run `npm run build` before pushing.
 
 ### The design record
 

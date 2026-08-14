@@ -84,11 +84,18 @@ function readRating(file, heading, body, scale) {
   );
 }
 
+// A plain integer gets zero-padded to match the design ("01"); "5a." and "9.1"
+// are left exactly as the author wrote them.
+const stepLabel = (step) => (/^\d+$/.test(step) ? String(step).padStart(2, '0') : step);
+
 /**
  * Flow is a GFM actor table followed by loose markdown (a numbered tail in every
  * file, plus a stray paragraph in one and a `_notes_` bullet block in another).
- * Parse the table into swimlane rows; treat everything after it as opaque
- * markdown and just render it. Do not try to structure the tail.
+ * Parse the table into swimlane rows. The numbered tail continues the step
+ * numbering, so it is promoted to actorless full-width steps rather than left as
+ * a stray `<ol start="6">` under the lanes. Everything after that list — the
+ * stray paragraph, the `_notes_` block — stays opaque markdown. Do not try to
+ * structure that remainder.
  */
 function readFlow(file, body) {
   const lines = body.split('\n');
@@ -110,11 +117,8 @@ function readFlow(file, body) {
   for (const line of lines.slice(start + 2, end)) {
     const [step, engineer, agent] = cells(line);
     if (!engineer && !agent) continue;
-    // A plain integer gets zero-padded to match the design ("01"); "5a." and
-    // "9.1" are left exactly as the author wrote them.
-    const label = /^\d+$/.test(step) ? String(step).padStart(2, '0') : step;
     rows.push({
-      label,
+      label: stepLabel(step),
       engineer: engineer ? inline(engineer) : '',
       agent: agent ? inline(agent) : '',
       both: Boolean(engineer && agent),
@@ -122,10 +126,24 @@ function readFlow(file, body) {
   }
   if (!rows.length) throw new ContentError(file, '"## Flow" table has no steps');
 
+  // The tail: leading blanks, then the numbered continuation of the table, then
+  // whatever else the author wrote. The list ends at the first non-blank line
+  // that isn't a `N. ` item.
+  const tail = [];
+  let i = end;
+  while (i < lines.length && !lines[i].trim()) i++;
+  for (; i < lines.length; i++) {
+    if (!lines[i].trim()) continue;
+    const m = /^(\d+)\.\s+(.+)$/.exec(lines[i].trim());
+    if (!m) break;
+    tail.push({ label: stepLabel(m[1]), html: inline(m[2]) });
+  }
+
   return {
     lanes: header.slice(1),
     rows,
-    notes: block(lines.slice(end).join('\n')),
+    tail,
+    notes: block(lines.slice(i).join('\n')),
   };
 }
 

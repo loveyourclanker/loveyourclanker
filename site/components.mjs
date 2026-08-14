@@ -123,7 +123,8 @@ export function radar(ratings) {
 /**
  * Two-lane swimlane from the Flow actor table. A row with both actors filled
  * becomes a full-width pair (the design's accept/reject outcome cards); every
- * other row is one card plus a spacer so the grid rows stay aligned.
+ * other row is one card plus a spacer so the grid rows stay aligned. The
+ * numbered tail continues the same series with no actor, so it spans both lanes.
  */
 export function swimlane(flow) {
   const lanes =
@@ -152,8 +153,18 @@ export function swimlane(flow) {
     })
     .join('');
 
+  const tail = flow.tail
+    .map(
+      (t) =>
+        `<div class="step step-full">` +
+        `<span class="step-n">${esc(t.label)}</span>` +
+        `<div class="step-body">${t.html}</div>` +
+        `</div>`
+    )
+    .join('');
+
   return (
-    `<div class="swimlane">${lanes}${rows}</div>` +
+    `<div class="swimlane">${lanes}${rows}${tail}</div>` +
     (flow.notes ? `<div class="flow-notes">${flow.notes}</div>` : '')
   );
 }
