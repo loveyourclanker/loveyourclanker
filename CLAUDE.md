@@ -164,10 +164,10 @@ icon: arrow-right-to-line     # must exist in site/icons.mjs
 
 <one-paragraph intro — also used as the card blurb on the front page>
 
-## Flow · ## Tools · ## Speed · ## Control · ## Quality · ## Safety · ## Brainrot · ## Token Use · ## Best For
+## Flow · ## Tools · ## Speed · ## Control · ## Quality · ## Safety · ## Brainrot · ## Token Use · ## Best For · ## Contributed By
 ```
 
-The nine `##` headings must be **identical and in this order in every file**. The build fails
+The ten `##` headings must be **identical and in this order in every file**. The build fails
 loudly if they aren't — that's deliberate, it's what keeps the comparison table honest.
 
 - `## Flow` is a **`| Step | Software Engineer | Agent |`** actor table, optionally with a
@@ -192,15 +192,22 @@ loudly if they aren't — that's deliberate, it's what keeps the comparison tabl
   in `content/axes.yml`: **Lowest, Low, Low to Medium, Medium, Medium to High, High, Highest,
   Negative**. Nothing else parses. (`Moderate` and `Fastest` were used once each and were
   normalised away — don't reintroduce them.)
+- `## Contributed By` is the attribution block: a markdown list of contributor links, one per
+  line. Bare URLs are fine — `linkify` is on in `site/parse.mjs`, so they render as anchors.
+  It is **not** a rubric section: it renders as a small credit line below the two-up, styled by
+  `.attribution` in `static/site.css`, not as a third column.
 - "Brainrot" is the name of the cognitive-cost axis. It was "Developer Brain Drain" earlier and
   the designer's mockup says "Brain drain" — **don't revert either way**. The inverted framing
   used on the dots and radar ("Skill retention") is set in `content/axes.yml`.
 
 ### Adding a pattern
 
-Write `patterns/<name>.md` with the frontmatter and the nine headings. That is the whole job —
+Write `patterns/<name>.md` with the frontmatter and the ten headings. That is the whole job —
 card, detail page, radar, comparison-table row and nav all appear. Add the Lucide icon to
 `site/icons.mjs` if it's a new one.
+
+`## Contributed By` is required like every other heading — a new pattern without it fails the
+build.
 
 ### Adding an axis
 

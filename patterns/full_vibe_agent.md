@@ -53,3 +53,8 @@ Highest. You are asking the agent to do everything and if you want to save token
 
 - Prototyping
 - Hobby projects that you may want to pick up properly later
+
+## Contributed By
+
+- https://github.com/JavascriptMick
+- https://github.com/JavascriptMick2

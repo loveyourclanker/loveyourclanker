@@ -53,3 +53,7 @@ Low. You are paying for a few hundred tokens of surrounding context per keystrok
 ## Best For
 
 - Established engineers who want to maintain control but increase efficiency marginally.
+
+## Contributed By
+
+- https://github.com/JavascriptMick

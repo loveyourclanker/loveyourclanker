@@ -66,3 +66,7 @@ Medium. Still paying for planning and checking but not all the generation tokens
 - Production Code that has never existed before.
 - Key IP for your business
 - Technology that is your 'Moat'
+
+## Contributed By
+
+- https://github.com/JavascriptMick

@@ -39,6 +39,8 @@ export function patternPage({ home, pattern: p, prev, next }) {
     `<div><h2>Tools</h2>${toolsBlock(p.tools)}</div>` +
     `</section>` +
 
+    `<aside class="attribution"><h2>Contributed by</h2>${p.contributedByHtml}</aside>` +
+
     `<nav class="pattern-nav">` +
     `<a class="btn btn-secondary" href="/#patterns">${icon('arrow-left', 16)} All patterns</a>` +
     (prev ? `<a class="btn btn-secondary" href="/patterns/${prev.slug}/">${icon('arrow-left', 16)} ${esc(prev.title)}</a>` : '') +

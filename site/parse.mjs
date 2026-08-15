@@ -268,6 +268,7 @@ export function loadPattern(file, axesCfg) {
     flow: readFlow(file, sections.get('Flow')),
     tools: readTools(sections.get('Tools')),
     bestForHtml: block(sections.get('Best For')),
+    contributedByHtml: block(sections.get('Contributed By')),
     ratings,
   };
 }

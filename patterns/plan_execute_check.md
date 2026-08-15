@@ -62,3 +62,7 @@ Medium to High. I have built whole systems on the $39 Claude plan using this met
 
 - Production Code that does not require creativity.
 - Code that has been 'seen before'
+
+## Contributed By
+
+- https://github.com/JavascriptMick

@@ -52,3 +52,7 @@ High. This is a guess, AFAIK, these services don't show you how many tokens you 
 ## Best For
 
 - Prototyping
+
+## Contributed By
+
+- https://github.com/JavascriptMick

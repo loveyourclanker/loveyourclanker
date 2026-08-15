@@ -33,6 +33,7 @@ sections:
     - Tools
   trailing:
     - Best For
+    - Contributed By
 
 axes:
   - key: speed
