@@ -10,13 +10,13 @@ If you don't understand code at all or for whatever reason, you don't want to pu
 
 ## Flow
 
-| Step | Software Engineer | Agent |
-| ---: | ----------------- | ----- |
-|    1 | The software engineer starts by prompting a system endpoint. "A mobile app that counts things", "A website where horses can meet other horses" | |
-|    2 | | The Agent evaluates app type, and prompts for Gaps. "should the app run on both IOS and Android?". "Should we include geldings or only breeding horses?" |
-|    3 | The software engineer answers questions. | |
-|    4 | | The agent builds the system and hosts it inside some sort of sandbox for review. |
-|    5 | The software engineer tests the system and prompts bugs or changes | |
+| Step | Software Engineer                                                  | Agent                                                                            | Prompt Examples                                                                                      |
+| ---: | ------------------------------------------------------------------ | -------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+|    1 | The software engineer starts by prompting a system endpoint.       |                                                                                  | "A mobile app that counts things", "A website where horses can meet other horses"                    |
+|    2 |                                                                    | The Agent evaluates app type, and prompts for Gaps.                              | "should the app run on both IOS and Android?". "Should we include geldings or only breeding horses?" |
+|    3 | The software engineer answers questions.                           |                                                                                  |                                                                                                      |
+|    4 |                                                                    | The agent builds the system and hosts it inside some sort of sandbox for review. |                                                                                                      |
+|    5 | The software engineer tests the system and prompts bugs or changes |                                                                                  |                                                                                                      |
 
 6. Repeat untill done
 7. The interaction ends.

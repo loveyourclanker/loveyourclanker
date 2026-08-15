@@ -89,6 +89,40 @@ function readRating(file, heading, body, scale) {
 const stepLabel = (step) => (/^\d+$/.test(step) ? String(step).padStart(2, '0') : step);
 
 /**
+ * The optional 4th Flow column, "Prompt Examples". Prompts are written the way the author already
+ * writes them in prose — in double quotes — so a cell can carry more than one
+ * without inventing a delimiter. Everything between the quotes is copied to the
+ * clipboard verbatim, typos and all, so nothing outside a quoted run is allowed
+ * to hide there: stray text is a mistake, not decoration.
+ */
+function readPrompts(file, cell) {
+  const s = String(cell ?? '').trim();
+  if (!s) return [];
+
+  const out = [];
+  const rest = s.replace(/"([^"]*)"/g, (_, body) => {
+    const t = body.trim();
+    if (!t) throw new ContentError(file, 'empty "" in the Flow Prompt Examples column');
+    out.push(t);
+    return ' ';
+  });
+
+  if (!out.length) {
+    throw new ContentError(file, `Flow Prompt Examples cell has no "quoted" prompt: ${JSON.stringify(s)}`);
+  }
+  // Commas and full stops between quotes are the author's punctuation; anything
+  // else is prose that belongs in the actor cell.
+  const stray = rest.replace(/[\s,.]+/g, '');
+  if (stray) {
+    throw new ContentError(
+      file,
+      `Flow Prompt Examples column takes only "quoted" prompts. Stray text: ${JSON.stringify(rest.trim())}`
+    );
+  }
+  return out;
+}
+
+/**
  * Flow is a GFM actor table followed by loose markdown (a numbered tail in every
  * file, plus a stray paragraph in one and a `_notes_` bullet block in another).
  * Parse the table into swimlane rows. The numbered tail continues the step
@@ -109,19 +143,30 @@ function readFlow(file, body) {
     line.trim().replace(/^\|/, '').replace(/\|$/, '').split('|').map((c) => c.trim());
 
   const header = cells(lines[start]);
-  if (header.length !== 3) {
-    throw new ContentError(file, `"## Flow" table needs 3 columns, found ${header.length}: ${header.join(' | ')}`);
+  if (header.length !== 3 && header.length !== 4) {
+    throw new ContentError(
+      file,
+      `"## Flow" table needs 3 columns, or 4 with a trailing Prompt Examples column. ` +
+        `Found ${header.length}: ${header.join(' | ')}`
+    );
+  }
+  if (header.length === 4 && !/^prompt examples$/i.test(header[3])) {
+    throw new ContentError(
+      file,
+      `"## Flow" 4th column must be headed "Prompt Examples", not ${JSON.stringify(header[3])}`
+    );
   }
 
   const rows = [];
   for (const line of lines.slice(start + 2, end)) {
-    const [step, engineer, agent] = cells(line);
+    const [step, engineer, agent, prompt] = cells(line);
     if (!engineer && !agent) continue;
     rows.push({
       label: stepLabel(step),
       engineer: engineer ? inline(engineer) : '',
       agent: agent ? inline(agent) : '',
       both: Boolean(engineer && agent),
+      prompts: readPrompts(file, prompt),
     });
   }
   if (!rows.length) throw new ContentError(file, '"## Flow" table has no steps');
@@ -140,7 +185,7 @@ function readFlow(file, body) {
   }
 
   return {
-    lanes: header.slice(1),
+    lanes: header.slice(1, 3),
     rows,
     tail,
     notes: block(lines.slice(i).join('\n')),

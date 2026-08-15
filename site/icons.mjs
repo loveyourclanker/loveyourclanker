@@ -21,6 +21,14 @@ const PATHS = {
     'M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4',
     'M9 18c-4.51 2-5-2-7-2',
   ],
+  copy: ['M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2'],
+  'message-square-quote': [
+    'M14 14a2 2 0 0 0 2-2V8h-2',
+    'M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z',
+    'M8 14a2 2 0 0 0 2-2V8H8',
+  ],
+  x: ['M18 6 6 18', 'm6 6 12 12'],
+  check: ['M20 6 9 17l-5-5'],
   'arrow-right': ['M5 12h14', 'm12 5 7 7-7 7'],
   'arrow-down': ['M12 5v14', 'm19 12-7 7-7-7'],
   'arrow-left': ['M19 12H5', 'm12 19-7-7 7-7'],
@@ -30,16 +38,26 @@ const CIRCLES = {
   'scan-search': [{ cx: 12, cy: 12, r: 3 }],
 };
 
+// Lucide draws a few glyphs with <rect>. Kept as rects rather than flattened to
+// a path so they can still be diffed against upstream by eye.
+const RECTS = {
+  copy: [{ x: 8, y: 8, width: 14, height: 14, rx: 2, ry: 2 }],
+};
+
 export function icon(name, size = 24, cls = '') {
   const paths = PATHS[name];
   if (!paths) throw new Error(`unknown icon "${name}" — add it to site/icons.mjs or fix the frontmatter`);
   const circles = (CIRCLES[name] ?? [])
     .map((c) => `<circle cx="${c.cx}" cy="${c.cy}" r="${c.r}"${c.fill ? ` fill="${c.fill}"` : ''}/>`)
     .join('');
+  const rects = (RECTS[name] ?? [])
+    .map((r) => `<rect x="${r.x}" y="${r.y}" width="${r.width}" height="${r.height}" rx="${r.rx}" ry="${r.ry}"/>`)
+    .join('');
   return (
     `<svg${cls ? ` class="${cls}"` : ''} width="${size}" height="${size}" viewBox="0 0 24 24" ` +
     `fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" ` +
     `stroke-linejoin="round" aria-hidden="true">` +
+    rects +
     paths.map((d) => `<path d="${d}"/>`).join('') +
     circles +
     `</svg>`

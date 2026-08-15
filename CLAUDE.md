@@ -48,7 +48,10 @@ If work is ready to commit, say so and stop. Offer a commit message if it helps 
 - `site/parse.mjs` — markdown → data, and **all** validation.
 - `site/components.mjs`, `site/icons.mjs`, `site/templates/` — HTML as template literals.
 - `static/` — copied verbatim into `dist/`. `ds.css` (vendored design system), `site.css`
-  (palette + components + responsive), `palette.js`, images.
+  (palette + components + responsive), `palette.js`, `prompts.js` (the example-prompt modal and
+  its click-to-copy; deferred, and every button ships `hidden` so an affordance only appears
+  when it works), images. `palette.js` also sets a `js` class on `<html>` before first paint —
+  `site.css` uses it to decide whether the prompt dialogs are modals or render inline.
 - `Dockerfile` / `Caddyfile` — multi-stage build → Caddy on `$PORT`. This is what runs in
   production on Railway.
 
@@ -126,6 +129,11 @@ Recorded because the mockups no longer exist to explain them. These are choices,
 - **Swimlane cards are coloured by actor** (engineer = surface, agent = accent-200). The mockup
   instead highlighted one specific step. Actor-colouring scales across five patterns.
 - **`## Tools` renders as pills only when every sentence is ≤40 chars**, prose otherwise.
+- **Example prompts open in a modal**, from a pill inside the step tile. The mockups had no
+  prompts at all. They were first rendered inline under the step and it buried the flow — a lane
+  is ~300px wide and step 1 of the plan patterns carries five of them, so the bands ran taller
+  than the steps they belonged to. Without JS the dialog falls back to exactly that inline band,
+  which is the lesser evil against losing the content entirely.
 - **There is a footer.** The mockups had none; both pages just ended on padding.
 - **Media queries exist.** The mockups had none at all, at any width.
 - **The palette switcher is two swatches in the bottom-right corner**, not the mockup's orange
@@ -162,11 +170,22 @@ icon: arrow-right-to-line     # must exist in site/icons.mjs
 The nine `##` headings must be **identical and in this order in every file**. The build fails
 loudly if they aren't — that's deliberate, it's what keeps the comparison table honest.
 
-- `## Flow` is a three-column **`| Step | Software Engineer | Agent |`** actor table, followed by
-  loose markdown (a numbered tail in every file, plus a stray paragraph in one and a `_notes_`
-  block in another). It renders as a two-lane swimlane. A row with *both* actor cells filled
-  becomes a full-width outcome pair. The tail is rendered as opaque markdown — don't try to
-  structure it further.
+- `## Flow` is a **`| Step | Software Engineer | Agent |`** actor table, optionally with a
+  fourth **`| Prompt |`** column, followed by loose markdown (a numbered tail in every file,
+  plus a stray paragraph in one and a `_notes_` block in another). It renders as a two-lane
+  swimlane. A row with *both* actor cells filled becomes a full-width outcome pair. The tail is
+  rendered as opaque markdown — don't try to structure it further.
+- The **`Prompt Examples` column** holds example prompts, each in `"double quotes"`, separated
+  by a comma or full stop if a step has more than one. Quotes are the delimiter, so a cell may
+  contain *nothing* but quoted runs and the punctuation between them — stray prose fails the
+  build. The heading must be exactly `Prompt Examples`; it is a machine contract like the
+  rating words, so the older `Prompt` now fails loudly rather than still working.
+  `promptTrigger` and `promptDialog` in `site/components.mjs` render a pill inside the step
+  card and a `<dialog>` after it, and the copied string is read straight back out of the
+  rendered text, so what is on screen is what lands on the clipboard. Both actors' prompts
+  belong here — the agent's example questions too, not just the engineer's. The column is
+  optional — `tab_completion.md` has no prompts and stays at three columns.
+
 - `## Tools` is free prose. It renders as pills when every sentence is ≤40 chars
   (`Lovable. Replit. Base44.`) and as prose otherwise. See `readTools` in `site/parse.mjs`.
 - The six rating sections are `<Rating>. <reasoning>`. The rating word must be in the `scale`

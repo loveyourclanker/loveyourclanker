@@ -227,6 +227,113 @@ kbd {
 .flow-notes { margin-top: var(--space-6); font-size: 14px; line-height: 1.6; color: var(--color-neutral-700); }
 .flow-notes ol, .flow-notes ul { margin: 0 0 var(--space-3); padding-left: 1.4em; }
 
+/* ══ prompt examples ═══════════════════════════════════════════════════
+   New — the mockups had no prompts. A pill in the step tile opens a modal; the
+   first cut showed the prompts inline under the step and it buried the flow.
+   See promptDialog in site/components.mjs. */
+
+/* The trigger, inside the step card. Same shape and colours as .prompt-copy so
+   the two read as one family. */
+.step-prompt-trigger {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  margin-top: var(--space-3); cursor: pointer;
+  border: 0; border-radius: 999px;
+  padding: var(--space-1) var(--space-3);
+  background: var(--color-neutral-200); color: var(--color-accent-2-700);
+  font-family: var(--font-body); font-size: 13px; line-height: 1.6;
+  transition: background 140ms ease, color 140ms ease;
+}
+.step-prompt-trigger:hover { background: var(--color-accent-2-200); color: var(--color-accent-2-800); }
+/* The agent lane sits on accent-200, where neutral-200 all but disappears. */
+.step-agt .step-prompt-trigger { background: var(--color-accent-100); color: var(--color-accent-800); }
+.step-agt .step-prompt-trigger:hover { background: var(--color-neutral-100); }
+
+/* The modal. Everything the browser gives showModal() for free — Esc, focus
+   trap, inert background — is left to the browser. */
+.prompt-dialog {
+  width: min(560px, 92vw); max-height: 80vh;
+  padding: var(--space-6); border: 0; border-radius: var(--radius-lg);
+  background: var(--color-surface); color: var(--color-text);
+  box-shadow: var(--shadow-lg);
+}
+.prompt-dialog::backdrop {
+  /* Pinned, like the hero — two reasons, both real. The neutral ramp inverts
+     between palettes, so --color-neutral-900 is near-white in the dark one and
+     a token reference would give a white scrim. And ::backdrop does not inherit
+     the :root custom properties in every engine, so a var() here is not
+     reliable anyway. The scrim wants to be the same near-black either way. */
+  background: rgba(5, 8, 7, 0.62);
+}
+.prompt-dialog-head {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--space-4); margin-bottom: var(--space-4);
+}
+.prompt-dialog-head h3 { font-size: 22px; margin: 0; }
+.prompt-dialog-close {
+  flex: none; display: inline-flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; cursor: pointer;
+  border: 0; border-radius: 999px;
+  background: transparent; color: var(--color-neutral-700);
+  transition: background 140ms ease, color 140ms ease;
+}
+.prompt-dialog-close:hover { background: var(--color-neutral-200); color: var(--color-text); }
+
+.prompts { display: grid; gap: var(--space-2); max-height: 62vh; overflow-y: auto; }
+
+.prompt {
+  display: flex; align-items: flex-start; gap: var(--space-3);
+  background: var(--color-bg); border: 1px solid var(--color-divider);
+  border-radius: var(--radius-md); padding: var(--space-3) var(--space-4);
+}
+.prompt-text {
+  flex: 1 1 auto; min-width: 0; margin: 0;
+  font-size: 14px; line-height: 1.5; color: var(--color-neutral-800);
+  overflow-wrap: anywhere;
+}
+/* Quote marks as generated content, so the copied text stays exactly the text
+   on screen — no punctuation the reader can see but the clipboard cannot. */
+.prompt-text::before { content: '\201C'; color: var(--color-accent-2-600); }
+.prompt-text::after { content: '\201D'; color: var(--color-accent-2-600); }
+
+.prompt-copy {
+  flex: 0 0 auto; display: inline-flex; align-items: center; gap: var(--space-1);
+  cursor: pointer; border: 0; border-radius: 999px;
+  padding: var(--space-1) var(--space-3);
+  background: var(--color-neutral-200); color: var(--color-accent-2-700);
+  font-family: var(--font-body); font-size: 12px; line-height: 1.6;
+  transition: background 140ms ease, color 140ms ease;
+}
+.prompt-copy:hover { background: var(--color-accent-2-200); color: var(--color-accent-2-800); }
+.prompt-copy .icon-done { display: none; }
+.prompt-copy.is-done .icon-copy, .prompt-copy.is-failed .icon-copy { display: none; }
+.prompt-copy.is-done .icon-done { display: inline; }
+.prompt-copy.is-done { background: var(--color-accent-2-200); color: var(--color-accent-2-800); }
+.prompt-copy.is-failed { background: var(--color-accent-200); color: var(--color-accent-800); }
+
+/* No JS: nothing can open a dialog, so it renders as a plain full-width band
+   under its step instead — which is what this component looked like before the
+   modal. The `js` class is set by palette.js before first paint, so there is no
+   flash of the fallback. */
+html:not(.js) .prompt-dialog {
+  display: block; position: static;
+  grid-column: 1 / -1; width: auto; max-height: none;
+  margin: 0 0 var(--space-4); padding: 0;
+  background: transparent; box-shadow: none;
+}
+html:not(.js) .prompt-dialog-close { display: none; }
+html:not(.js) .prompt-dialog-head h3 {
+  font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase;
+  font-family: var(--font-body); color: var(--color-neutral-600);
+}
+html:not(.js) .prompts { max-height: none; overflow: visible; }
+
+@media (max-width: 640px) {
+  .prompt-dialog { padding: var(--space-4); }
+  /* The button drops under the quote rather than squeezing it. */
+  .prompt { flex-wrap: wrap; }
+  .prompt-copy { margin-left: auto; }
+}
+
 /* ══ rubric / best for / tools ═════════════════════════════════════════ */
 .rubric-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
 .rubric-head { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-3); flex-wrap: wrap; }

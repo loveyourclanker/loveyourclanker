@@ -121,6 +121,60 @@ export function radar(ratings) {
 }
 
 /**
+ * Example prompts from the Flow table's "Prompt Examples" column.
+ *
+ * These render in two pieces that land in different places: a pill inside the
+ * step card, and a `<dialog>` emitted straight after it. The first cut showed
+ * the prompts inline under the step and it drowned the flow — step 1 of the
+ * plan patterns carries five of them, and the bands ran taller than the steps
+ * they belonged to. A modal keeps the swimlane readable and gives a long prompt
+ * the full width instead of a ~300px lane.
+ *
+ * The text is escaped rather than rendered as markdown on purpose: what is on
+ * screen is exactly what lands on the clipboard, straight quotes and typos
+ * included. prompts.js reads it back out of `.prompt-text` with textContent, so
+ * the two can never drift. Both the trigger and the copy buttons ship `hidden`
+ * and are only revealed by that script — an affordance that cannot act is worse
+ * than none. Without JS the dialog falls back to rendering inline (see the
+ * `html:not(.js)` block in static/site.css), so the prompts are never lost.
+ */
+export const promptId = (label) => `prompts-${String(label).replace(/[^a-zA-Z0-9]+/g, '-').replace(/-$/, '')}`;
+
+export function promptTrigger(id, prompts) {
+  if (!prompts || !prompts.length) return '';
+  const n = prompts.length;
+  return (
+    `<button class="step-prompt-trigger" type="button" data-prompt-dialog="${esc(id)}" hidden>` +
+    icon('message-square-quote', 15) +
+    `<span>${n} prompt example${n > 1 ? 's' : ''}</span>` +
+    `</button>`
+  );
+}
+
+export function promptDialog(id, label, prompts) {
+  if (!prompts || !prompts.length) return '';
+  const one = (text) =>
+    `<div class="prompt">` +
+    `<p class="prompt-text">${esc(text)}</p>` +
+    `<button class="prompt-copy" type="button" aria-label="Copy this prompt" hidden>` +
+    icon('copy', 15, 'icon-copy') +
+    icon('check', 15, 'icon-done') +
+    `<span class="prompt-copy-label" aria-live="polite">Copy</span>` +
+    `</button></div>`;
+  return (
+    `<dialog class="prompt-dialog" id="${esc(id)}" aria-labelledby="${esc(id)}-title">` +
+    `<div class="prompt-dialog-head">` +
+    `<h3 id="${esc(id)}-title">` +
+    `${prompts.length > 1 ? 'Prompts' : 'Prompt'} for step ${esc(label)}` +
+    `</h3>` +
+    `<button class="prompt-dialog-close" type="button" aria-label="Close">${icon('x', 18)}</button>` +
+    `</div>` +
+    `<div class="prompts">${prompts.map(one).join('')}</div>` +
+    `</dialog>`
+  );
+}
+
+/**
  * Two-lane swimlane from the Flow actor table. A row with both actors filled
  * becomes a full-width pair (the design's accept/reject outcome cards); every
  * other row is one card plus a spacer so the grid rows stay aligned. The
@@ -131,25 +185,32 @@ export function swimlane(flow) {
     `<div class="lane-head lane-eng">${esc(flow.lanes[0])}</div>` +
     `<div class="lane-head lane-agt">${esc(flow.lanes[1])}</div>`;
 
-  const step = (label, html, side) =>
+  const step = (label, html, side, trigger) =>
     `<div class="step step-${side}">` +
     `<span class="step-n">${esc(label)}</span>` +
     `<div class="step-body">${html}</div>` +
+    trigger +
     `</div>`;
 
   const rows = flow.rows
     .map((r) => {
+      const id = promptId(r.label);
+      const trigger = promptTrigger(id, r.prompts);
+      const dialog = promptDialog(id, r.label, r.prompts);
       if (r.both) {
         return (
           `<div class="step-pair">` +
-          `<div class="step step-outcome step-eng"><span class="step-n">${esc(r.label)}</span><div class="step-body">${r.engineer}</div></div>` +
+          `<div class="step step-outcome step-eng"><span class="step-n">${esc(r.label)}</span><div class="step-body">${r.engineer}</div>${trigger}</div>` +
           `<div class="step step-outcome step-agt"><span class="step-n">${esc(r.label)}</span><div class="step-body">${r.agent}</div></div>` +
-          `</div>`
+          `</div>` +
+          dialog
         );
       }
-      return r.engineer
-        ? step(r.label, r.engineer, 'eng') + `<div class="step-spacer"></div>`
-        : `<div class="step-spacer"></div>` + step(r.label, r.agent, 'agt');
+      return (
+        (r.engineer
+          ? step(r.label, r.engineer, 'eng', trigger) + `<div class="step-spacer"></div>`
+          : `<div class="step-spacer"></div>` + step(r.label, r.agent, 'agt', trigger)) + dialog
+      );
     })
     .join('');
 

@@ -62,6 +62,11 @@
   try { saved = localStorage.getItem(KEY); } catch (e) {}
   var active = apply(saved || 'clanker', false).id;
 
+  /* Set here rather than in prompts.js because this file is the only one that
+     runs before first paint. site.css uses it to flip the prompt dialogs from
+     rendering inline (no JS, nothing can open them) to being real modals. */
+  root.classList.add('js');
+
   document.addEventListener('DOMContentLoaded', function () {
     // ── palette switcher ──────────────────────────────────────────────
     var ui = document.getElementById('palette-ui');

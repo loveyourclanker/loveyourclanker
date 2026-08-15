@@ -59,6 +59,9 @@ export function layout({ home, title, description, bodyClass = '', sticky = fals
 <!-- Blocking on purpose: applies the saved palette before first paint so a
      dark-mode reload does not flash light. ~3KB, same origin. -->
 <script src="/palette.js"></script>
+<!-- Deferred: the prompt trigger and copy buttons ship hidden; this reveals
+     them and drives the modal. -->
+<script src="/prompts.js" defer></script>
 </head>
 <body${bodyClass ? ` class="${bodyClass}"` : ''}>
 <a class="skip-link" href="#main">Skip to content</a>
