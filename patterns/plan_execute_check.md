@@ -32,7 +32,7 @@ The next step is usually to re-enter 'Plan' mode and repeat the interraction. Th
 
 ## Tools
 
-Any modern harness + frontier model. Claude Code + Opus or Fable, Cursor, Antigravity etc.....
+Any modern harness + frontier model. Claude Code. Cursor. Antigravity.
 
 ## Speed
 

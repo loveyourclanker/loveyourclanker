@@ -35,19 +35,19 @@ Lowest. You might not even see the code. You may be able to 'eject' from the pla
 
 ## Quality
 
-Low to Medium. Depends on the implementation. There is scope within these products to leverage DRY principles, managed orchestration, guard rails, multi agent cross checking systems etc etc... but the extent to which they do so is unknown.
+Low to Medium. Depends on the implementation. There is scope within these products to leverage DRY principles, managed orchestration, guard rails, multi agent cross checking systems etc.
 
 ## Safety
 
-Low to Medium, and it is the platform's safety, not yours. You review no code, so nothing is caught at the increment. Defects land in production because production is where the platform builds. Worse, the risk is systemic rather than per project. One platform flaw hits every app hosted on it. Base44 is the clean example, a single missing privacy check exposed private enterprise apps wholesale and the exploit needed nothing more than a URL. This is the exact inversion of the Tab Completion argument. There, safety is equivalent to your own skill. Here it is equivalent to the vendor's, and you have no visibility into it and no lever on it beyond choosing a different vendor. The guardrails that do exist were mostly retrofitted after an incident, and the failures were boring defaults rather than exotic attacks. Lovable shipped with row level security off, Replit ignored its own code freeze. Which is the thing worth remembering, a guardrail stated in the prompt is not a guardrail.
+Low to Medium. Depends on the Implementation.
 
 ## Brainrot
 
-Highest. Complete handoff, complete brain melting. You might as well be spending 12 hours playing a brainrot mini game on PUBG Mobile (a friend gave me this example.. it's not me)
+Highest. Complete handoff of all responsibility for both code and architectural decisions. You learn nothing.
 
 ## Token Use
 
-High. You are definitely paying for tokens whether you like it or not.
+High. This is a guess, AFAIK, these services don't show you how many tokens you are using.
 
 ## Best For
 

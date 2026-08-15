@@ -10,21 +10,21 @@ In the early days of AI coding, this was _it_ and it is where the agentic engine
 
 ## Flow
 
-| Step | Software Engineer | Agent |
-| ---: | ----------------- | ----- |
-|    1 | In the context of hand coding inside existing software, The software engineer starts writing a line of code, function, or class body. | |
-|    2 | The software engineer presses <kbd>Tab</kbd>. | |
-|    3 | | The agent gathers context from around the cursor, including comments and code errors. |
-|    4 | | The agent generates and presents a proposed completion. |
-|    5 | The software engineer reviews the proposed completion: | |
-|  5a. | **Accepts the completion** — The software engineer confirms the change. | The agent applies the completion. |
-|  5b. | **Rejects the completion** — The software engineer declines the change. | The agent makes no changes. |
+| Step | Software Engineer                                                                                                                     | Agent                                                                                 |
+| ---: | ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+|    1 | In the context of hand coding inside existing software, The software engineer starts writing a line of code, function, or class body. |                                                                                       |
+|    2 | The software engineer presses <kbd>Tab</kbd>.                                                                                         |                                                                                       |
+|    3 |                                                                                                                                       | The agent gathers context from around the cursor, including comments and code errors. |
+|    4 |                                                                                                                                       | The agent generates and presents a proposed completion.                               |
+|    5 | The software engineer reviews the proposed completion:                                                                                |                                                                                       |
+|  5a. | **Accepts the completion** — The software engineer confirms the change.                                                               | The agent applies the completion.                                                     |
+|  5b. | **Rejects the completion** — The software engineer declines the change.                                                               | The agent makes no changes.                                                           |
 
 6. The interaction ends.
 
 ## Tools
 
-Microsoft Copilot
+Microsoft Copilot.
 
 ## Speed
 

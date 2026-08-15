@@ -13,7 +13,7 @@ export function patternPage({ home, pattern: p, prev, next }) {
     `<section class="section flow-layout">` +
     `<div class="flow-main"><h2>The flow</h2>${swimlane(p.flow)}</div>` +
     `<aside class="panel radar-panel">` +
-    `<h3>The shape of it</h3>` +
+    `<h3>Radar Chart</h3>` +
     radar(p.ratings) +
     `<p class="fine">Further out is better. The last two axes are the friendly side of ` +
     `brainrot and token use, so a full score there means the pattern costs you little.</p>` +
@@ -21,7 +21,7 @@ export function patternPage({ home, pattern: p, prev, next }) {
     `</section>` +
 
     `<section class="section">` +
-    `<h2>The ratings, in words</h2>` +
+    `<h2>How it Stacks Up</h2>` +
     `<div class="card-grid rubric-grid">` +
     p.ratings
       .map(

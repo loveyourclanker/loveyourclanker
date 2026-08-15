@@ -40,28 +40,28 @@ axes:
     label: Speed
     dotLabel: Speed
     invert: false
-    definition: How much wall-clock time the pattern actually saves — not how fast the tokens arrive.
+    definition: How many features can you deliver in a set time.
 
   - key: control
     heading: Control
     label: Control
     dotLabel: Control
     invert: false
-    definition: How small the increments are, and how easily you can steer, reject, or supply context.
+    definition: What is your agency as the Engineer.  How enabled are you to shape the codebase, the architecture, the approach.
 
   - key: quality
     heading: Quality
     label: Quality
     dotLabel: Quality
     invert: false
-    definition: What the code looks like a month later, once the session that produced it is forgotten.
+    definition: Software Quality is somewhat vexed.  Let's just go with whatever the opposite of 'AI Slop' is.  Unslop?
 
   - key: safety
     heading: Safety
     label: Safety
     dotLabel: Safety
     invert: false
-    definition: The blast radius when it goes wrong, and how much of the damage you'd notice.
+    definition: Software with low safety will expose your credentials, make your infrastructure easy to hack and leak the identities of your users. Safety good.
 
   # invert: true means low is the good news. The dots and the radar show the
   # flipped score under `dotLabel` so "further out is better" holds everywhere.
@@ -70,11 +70,11 @@ axes:
     label: Brainrot
     dotLabel: Skill retention
     invert: true
-    definition: How much of the thinking leaves your head for good. Low is what you want.
+    definition: How much of your mental agility and capability is being lost because you are handing off all the thinking to our friends. Brainrot bad, Skill Retention good.
 
   - key: tokenUse
     heading: Token Use
     label: Token use
     dotLabel: Token thrift
     invert: true
-    definition: What the pattern costs to run, per unit of work that survives review.
+    definition: How many tokens are you going to use to get to a specific working feature.

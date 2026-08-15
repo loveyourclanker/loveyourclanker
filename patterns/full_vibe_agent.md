@@ -23,7 +23,7 @@ If you don't understand code at all or for whatever reason, you don't want to pu
 
 ## Tools
 
-Any modern harness + frontier model. Claude Code + Opus or Fable, Cursor, Antigravity etc.....
+Any modern harness + frontier model. Claude Code. Cursor. Antigravity.
 
 ## Speed
 

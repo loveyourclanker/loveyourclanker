@@ -35,7 +35,7 @@ _notes_
 
 ## Tools
 
-Any modern harness + frontier model. Claude Code + Opus or Fable, Cursor, Antigravity etc.....
+Any modern harness + frontier model. Claude Code. Cursor. Antigravity.
 
 ## Speed
 
